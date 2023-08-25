@@ -1,3 +1,4 @@
+import Notiflix from 'notiflix';
 const firstDelay = document.querySelector('#delay');
 const delayStep = document.querySelector('#step');
 const amount = document.querySelector('#amount');
@@ -27,9 +28,11 @@ function createPromise(position, delay) {
   });
   promis
     .then(text => {
+      Notiflix.Notify.success(text);
       console.log(text);
     })
     .catch(error => {
+      Notiflix.Notify.failure(error);
       console.log(error);
     });
 }
