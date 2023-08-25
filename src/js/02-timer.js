@@ -20,7 +20,7 @@ const options = {
       datetimeBtn.removeAttribute('disabled');
     } else {
       window.alert('Please choose a date in the future');
-      datetimeBtn.toggleAttribute('disabled');
+      datetimeBtn.setAttribute('disabled', 'Some button');
     }
     console.log(selectedDates[0]);
     return (datepickerFerst = selectedDates[0]);
