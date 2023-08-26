@@ -29,7 +29,7 @@ Btn.addEventListener('click', e => {
 
   setTimeout(() => {
     for (let i = 1; i <= amount.value; i++) {
-      createPromise(i, i * delayStep.value);
+      createPromise(i, (i - 1) * delayStep.value);
     }
   }, firstDelay.value);
 });
