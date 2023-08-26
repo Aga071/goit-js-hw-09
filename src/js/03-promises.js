@@ -1,40 +1,27 @@
 import Notiflix from 'notiflix';
-const firstDelay = document.querySelector('#delay');
-const delayStep = document.querySelector('#step');
-const amount = document.querySelector('#amount');
-
-const Btn = document.querySelector('button[data-action]');
+import { firstDelay, delayStep, amount, Btn } from './myVariables';
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
-  const promis = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (shouldResolve) {
-        return resolve(
-          `Fulfilled promise ${position} in ${
-            Number(firstDelay.value) + position * delay
-          }ms`
-        );
-        // Fulfill
-      } else {
-        return reject(
-          `Rejected promise ${position} in ${
-            Number(firstDelay.value) + position * delay
-          }ms`
-        );
-        // Reject
-      }
-    }, delay);
-  });
-  promis
-    .then(text => {
-      Notiflix.Notify.success(text);
-      console.log(text);
-    })
-    .catch(error => {
-      Notiflix.Notify.failure(error);
-      console.log(error);
-    });
+  setTimeout(() => {
+    if (shouldResolve) {
+      return Promise.resolve(
+        `Fulfilled promise ${position} in ${Number(firstDelay.value) + delay}ms`
+      ).then(text => {
+        Notiflix.Notify.success(text);
+        console.log(text);
+      });
+      // Fulfill
+    } else {
+      return Promise.reject(
+        `Rejected promise ${position} in ${Number(firstDelay.value) + delay}ms`
+      ).catch(error => {
+        Notiflix.Notify.failure(error);
+        console.log(error);
+      });
+      // Reject
+    }
+  }, delay);
 }
 
 Btn.addEventListener('click', e => {
@@ -42,7 +29,7 @@ Btn.addEventListener('click', e => {
 
   setTimeout(() => {
     for (let i = 1; i <= amount.value; i++) {
-      createPromise(i, delayStep.value);
+      createPromise(i, i * delayStep.value);
     }
   }, firstDelay.value);
 });
